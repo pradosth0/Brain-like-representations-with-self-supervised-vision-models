@@ -1,0 +1,22 @@
+To setup data : 
+
+1) Download FMRI dataset
+
+python nsd_extractor.py --output-dir ./data
+
+The dataset should be saved in the data folder, with all 8 subjects and 40 sessions
+
+2) Download image dataset
+
+Download nsd_stimuli.hdf5 from the datset and place it in the data folder
+Path should be : data\nsd_stimuli.hdf5
+
+3) Download ROIs dataset
+
+for sub in 01 02 03 04 05 06 07 08; do
+    aws s3 cp s3://natural-scenes-dataset/nsddata/ppdata/subj${sub}/func1pt8mm/roi/ \
+        ./data/roi_masks/subj${sub}/ \
+        --recursive --region us-east-1
+done
+
+This hsould add a roi_masks folder to the data folder, with masks for all 8 participants
